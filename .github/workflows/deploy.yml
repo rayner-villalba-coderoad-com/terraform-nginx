@@ -4,28 +4,31 @@ on:
   workflow_dispatch:
 jobs:
   terraform:
-    name: "Terraform"
+    name: "Construyendo nginx server"
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
-      - name: Obteniendo el codigo
+      - name: Obteniendo el codigo 📥
         uses: actions/checkout@v4
      
       - name: Instalando terraform
         uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.1.7"
-      - name: Terraform Init
+
+      - name: Terraform Init 💻
         id: init
         run: terraform init
-      - name: Terraform Destroy
+
+      - name: Terraform Destroy 💣
         id: destroy
         run: terraform destroy  
-      - name: Terraform Plan
+
+      - name: Terraform Plan 🗂️
         id: plan
         run: terraform plan -destroy
   
-      - name: Terraform Apply
+      - name: Terraform Apply 🤖
         run: terraform apply -auto-approve
